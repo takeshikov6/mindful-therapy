@@ -33,8 +33,8 @@ const TRACKS = [
   },
 ];
 
-const CHIME_START = "https://assets.mixkit.co/active_storage/sfx/2319/2319.wav";
-const CHIME_END = "https://assets.mixkit.co/active_storage/sfx/2869/2869.wav";
+const CHIME_START = "https://assets.mixkit.co/active_storage/sfx/2568/2568.wav";
+const CHIME_END = "https://assets.mixkit.co/active_storage/sfx/2579/2579.wav";
 
 const PRESET_TIMES = [
   { label: "2 min", seconds: 2 * 60 },
@@ -57,16 +57,22 @@ function formatTime(seconds: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
-function playChime(src: string) {
-  const audio = new Audio(src);
-  audio.volume = 0.6;
-  audio.play().catch(() => {});
+function playChime(src: string): Promise<void> {
+  return new Promise((resolve) => {
+    const audio = new Audio(src);
+    audio.volume = 0.5;
+    audio.onended = () => resolve();
+    audio.play().catch(() => resolve());
+    // Fallback in case onended doesn't fire
+    setTimeout(resolve, 1500);
+  });
 }
 
 export default function BreathePage() {
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [isRunning, setIsRunning] = useState(false);
+  const [musicReady, setMusicReady] = useState(false);
   const [currentTrack, setCurrentTrack] = useState(0);
   const [breathPhase, setBreathPhase] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -75,6 +81,7 @@ export default function BreathePage() {
 
   const stopSession = useCallback((playEndChime = true) => {
     setIsRunning(false);
+    setMusicReady(false);
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (breathTimeoutRef.current) clearTimeout(breathTimeoutRef.current);
     if (audioRef.current) {
@@ -86,13 +93,15 @@ export default function BreathePage() {
     }
   }, []);
 
-  const startSession = () => {
+  const startSession = async () => {
     if (!selectedTime) return;
-    playChime(CHIME_START);
     setTimeLeft(selectedTime);
     setIsRunning(true);
     setBreathPhase(0);
     setCurrentTrack(0);
+    // Play chime first, then start music
+    await playChime(CHIME_START);
+    setMusicReady(true);
   };
 
   // Countdown timer
@@ -123,9 +132,9 @@ export default function BreathePage() {
     };
   }, [isRunning, breathPhase]);
 
-  // Audio playback
+  // Audio playback — starts only after chime finishes
   useEffect(() => {
-    if (!isRunning) return;
+    if (!musicReady) return;
     const audio = new Audio(TRACKS[currentTrack].src);
     audioRef.current = audio;
     audio.volume = 0.4;
@@ -137,7 +146,7 @@ export default function BreathePage() {
       audio.pause();
       audio.onended = null;
     };
-  }, [isRunning, currentTrack]);
+  }, [musicReady, currentTrack]);
 
   // Breathing circle scale
   const phase = BREATH_PHASES[breathPhase];

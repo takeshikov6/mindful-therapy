@@ -65,6 +65,17 @@ export default function WelcomeScreen({
         <p className="font-display italic text-lg text-stone-400 text-center max-w-sm">
           trust the process of showing up for yourself
         </p>
+
+        {/* Chat button */}
+        <button
+          onClick={() => onPromptClick?.("Hey, I'd like to talk")}
+          className="group relative px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 active:scale-95"
+        >
+          <div className="absolute inset-0 rounded-full bg-amber-400 shadow-lg shadow-amber-300/25 group-hover:shadow-amber-300/40 transition-all duration-300" />
+          <span className="relative text-[12px] tracking-[0.25em] uppercase font-medium text-white">
+            Start chatting
+          </span>
+        </button>
       </div>
 
       {/* Conversation starters */}
@@ -74,7 +85,7 @@ export default function WelcomeScreen({
             <button
               key={p.num}
               onClick={() => onPromptClick?.(p.title)}
-              className="text-left group px-4 py-3 rounded-xl transition-all hover:bg-amber-50/60 active:scale-[0.98]"
+              className="text-left group px-4 py-3 rounded-xl transition-all duration-300 hover:bg-amber-50/80 hover:shadow-md hover:shadow-amber-200/30 hover:ring-1 hover:ring-amber-300/30 active:scale-[0.98]"
             >
               <span className="text-[11px] tracking-[0.2em] uppercase text-amber-500/70 font-medium">
                 {p.num} / {p.label}
