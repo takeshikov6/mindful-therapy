@@ -36,7 +36,7 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
   };
 
   return (
-    <div className="border-t border-slate-500/20 bg-slate-800/60 backdrop-blur-sm px-4 py-3">
+    <div className="border-t border-stone-200/60 bg-cream-50/90 backdrop-blur-sm px-4 py-3">
       <div className="max-w-2xl mx-auto flex items-end gap-3">
         <textarea
           ref={textareaRef}
@@ -46,12 +46,12 @@ export default function ChatInput({ onSend, disabled }: ChatInputProps) {
           placeholder="Share what's on your mind..."
           rows={1}
           disabled={disabled}
-          className="flex-1 resize-none rounded-2xl border border-slate-500/30 bg-slate-700/50 px-4 py-3 text-[15px] text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500/30 focus:border-sky-500/40 transition-all disabled:opacity-40"
+          className="flex-1 resize-none rounded-2xl border border-stone-200/80 bg-white/70 px-4 py-3 text-[15px] text-stone-700 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-300/40 focus:border-amber-300/60 transition-all disabled:opacity-40"
         />
         <button
           onClick={handleSubmit}
           disabled={!input.trim() || disabled}
-          className="flex-shrink-0 w-11 h-11 rounded-full bg-sky-500/80 text-white flex items-center justify-center hover:bg-sky-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+          className="flex-shrink-0 w-11 h-11 rounded-full bg-amber-400 text-white flex items-center justify-center hover:bg-amber-500 transition-colors disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
         >
           <svg
             width="18"
