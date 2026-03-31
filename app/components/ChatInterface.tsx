@@ -113,9 +113,9 @@ export default function ChatInterface() {
   );
 
   return (
-    <div className="flex flex-col h-screen bg-slate-700">
+    <div className={`flex flex-col h-screen ${showWelcome ? "bg-black" : "bg-slate-700"}`}>
       {/* Header */}
-      <header className="flex-shrink-0 border-b border-slate-500/20 bg-slate-800/40 backdrop-blur-sm px-6 py-3">
+      <header className={`flex-shrink-0 border-b backdrop-blur-sm px-6 py-3 ${showWelcome ? "border-white/5 bg-black/60" : "border-slate-500/20 bg-slate-800/40"}`}>
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <h1 className="text-[13px] tracking-[0.25em] uppercase font-medium text-slate-200">
             MindfulChat
