@@ -7,6 +7,7 @@ import WelcomeScreen from "./WelcomeScreen";
 import MessageBubble from "./MessageBubble";
 import TypingIndicator from "./TypingIndicator";
 import ChatInput from "./ChatInput";
+import { PinkStar, SmallCloud, Heart } from "./CuteDecorations";
 
 export default function ChatInterface() {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
@@ -113,9 +114,16 @@ export default function ChatInterface() {
   );
 
   return (
-    <div className="flex flex-col h-screen bg-[#f7f3ed]">
+    <div className="flex flex-col h-screen bg-[#f7f3ed] relative">
+      {/* Subtle background decorations */}
+      <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+        <SmallCloud className="absolute top-[15%] right-[5%] opacity-60" />
+        <PinkStar className="absolute bottom-[20%] left-[4%] opacity-50 [animation-delay:1s]" />
+        <Heart className="absolute top-[40%] right-[3%] opacity-40 [animation-delay:2s]" />
+      </div>
+
       {/* Header */}
-      <header className="flex-shrink-0 border-b border-stone-200/60 bg-cream-50/80 backdrop-blur-sm px-6 py-3">
+      <header className="relative z-10 flex-shrink-0 border-b border-stone-200/60 bg-cream-50/80 backdrop-blur-sm px-6 py-3">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <h1 className="text-[13px] tracking-[0.25em] uppercase font-medium text-stone-600">
             MindfulChat
@@ -133,12 +141,12 @@ export default function ChatInterface() {
 
       {/* Messages Area */}
       {showWelcome ? (
-        <div className="flex-1 flex flex-col min-h-0">
+        <div className="relative z-10 flex-1 flex flex-col min-h-0">
           <WelcomeScreen visible={showWelcome} onPromptClick={handleSend} />
         </div>
       ) : (
         <>
-          <div className="flex-1 overflow-y-auto min-h-0">
+          <div className="relative z-10 flex-1 overflow-y-auto min-h-0">
             <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
               {messages.map((msg) => (
                 <MessageBubble

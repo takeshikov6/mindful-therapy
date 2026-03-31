@@ -95,6 +95,61 @@ export function TeaCup({ className = "" }: { className?: string }) {
   );
 }
 
+export function Butterfly({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 30 30"
+      className={`animate-float-gentle ${className}`}
+    >
+      {/* Left wing */}
+      <ellipse cx="10" cy="12" rx="7" ry="9" fill="#e8a0d0" opacity="0.7" transform="rotate(-15 10 12)" />
+      {/* Right wing */}
+      <ellipse cx="20" cy="12" rx="7" ry="9" fill="#d898c8" opacity="0.7" transform="rotate(15 20 12)" />
+      {/* Body */}
+      <ellipse cx="15" cy="15" rx="1.5" ry="6" fill="#8a6878" />
+      {/* Antennae */}
+      <line x1="14" y1="9" x2="11" y2="4" stroke="#8a6878" strokeWidth="0.8" strokeLinecap="round" />
+      <line x1="16" y1="9" x2="19" y2="4" stroke="#8a6878" strokeWidth="0.8" strokeLinecap="round" />
+      <circle cx="11" cy="3.5" r="1" fill="#8a6878" />
+      <circle cx="19" cy="3.5" r="1" fill="#8a6878" />
+    </svg>
+  );
+}
+
+export function Heart({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      className={`animate-twinkle ${className}`}
+    >
+      <path
+        d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"
+        fill="#f0a0a0"
+        opacity="0.5"
+      />
+    </svg>
+  );
+}
+
+export function SmallCloud({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      width="28"
+      height="16"
+      viewBox="0 0 40 22"
+      className={`animate-float-gentle ${className}`}
+    >
+      <ellipse cx="14" cy="14" rx="10" ry="7" fill="#e8e0d4" opacity="0.4" />
+      <ellipse cx="24" cy="12" rx="8" ry="6" fill="#e8e0d4" opacity="0.35" />
+      <ellipse cx="20" cy="8" rx="7" ry="5" fill="#ede6da" opacity="0.3" />
+    </svg>
+  );
+}
+
 export function Plant({ className = "" }: { className?: string }) {
   return (
     <svg

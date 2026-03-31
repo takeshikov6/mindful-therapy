@@ -1,7 +1,7 @@
 "use client";
 
 import CuteAvatar from "./CuteAvatar";
-import { PinkStar, Ladybug, TeaCup, Plant } from "./CuteDecorations";
+import { PinkStar, Ladybug, TeaCup, Plant, Butterfly, Heart, SmallCloud } from "./CuteDecorations";
 
 interface WelcomeScreenProps {
   visible: boolean;
@@ -36,9 +36,19 @@ export default function WelcomeScreen({
   if (!visible) return null;
 
   return (
-    <div className="flex flex-col items-center justify-between flex-1 animate-fade-in min-h-0 bg-[#f7f3ed]">
+    <div className="flex flex-col items-center justify-between flex-1 animate-fade-in min-h-0 bg-[#f7f3ed] relative overflow-hidden">
+      {/* Scattered background decorations */}
+      <div className="absolute inset-0 pointer-events-none">
+        <SmallCloud className="absolute top-[8%] left-[10%]" />
+        <SmallCloud className="absolute top-[12%] right-[14%] [animation-delay:2s]" />
+        <Heart className="absolute top-[22%] right-[20%] [animation-delay:0.5s]" />
+        <Butterfly className="absolute top-[30%] left-[8%] [animation-delay:1.5s]" />
+        <PinkStar className="absolute bottom-[35%] right-[10%] [animation-delay:1s]" />
+        <Heart className="absolute bottom-[40%] left-[15%] [animation-delay:2s]" />
+      </div>
+
       {/* Main content */}
-      <div className="flex-1 flex flex-col items-center justify-center gap-8 px-6">
+      <div className="relative z-10 flex-1 flex flex-col items-center justify-center gap-8 px-6">
         {/* Cute character with decorations */}
         <div className="relative">
           <PinkStar className="absolute -top-4 -right-6" />

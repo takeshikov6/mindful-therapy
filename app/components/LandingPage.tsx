@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CuteAvatar from "./CuteAvatar";
-import { PinkStar, Plant, Ladybug } from "./CuteDecorations";
+import { PinkStar, Plant, Ladybug, Butterfly, Heart } from "./CuteDecorations";
 
 interface LandingPageProps {
   onBegin: () => void;
@@ -70,6 +70,12 @@ export default function LandingPage({ onBegin }: LandingPageProps) {
         </div>
         <div className="absolute top-[60%] left-[30%]">
           <PinkStar className="[animation-delay:0.5s]" />
+        </div>
+        <div className="absolute top-[40%] right-[25%]">
+          <Butterfly className="[animation-delay:2s]" />
+        </div>
+        <div className="absolute bottom-[15%] right-[30%]">
+          <Heart className="[animation-delay:1.5s]" />
         </div>
       </div>
 
