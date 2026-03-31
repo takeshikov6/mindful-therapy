@@ -98,10 +98,24 @@
     100% { opacity: 0; transform: translateY(-6px) scaleX(0.8); }
   }
 
+  @keyframes portal-ring {
+    0% { width: 0; height: 0; opacity: 1; }
+    100% { width: 250vmax; height: 250vmax; opacity: 0; }
+  }
+
+  @keyframes portal-flash {
+    0% { opacity: 0; }
+    60% { opacity: 0; }
+    80% { opacity: 1; }
+    100% { opacity: 1; }
+  }
+
   --animate-float-gentle: float-gentle 3s ease-in-out infinite;
   --animate-twinkle: twinkle 2s ease-in-out infinite;
   --animate-sway-gentle: sway-gentle 4s ease-in-out infinite;
   --animate-steam: steam 2s ease-in-out infinite;
+  --animate-portal-ring: portal-ring 1.2s ease-out forwards;
+  --animate-portal-flash: portal-flash 1.2s ease-out forwards;
 }
 
 html, body {
