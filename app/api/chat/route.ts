@@ -2,9 +2,11 @@ import Groq from "groq-sdk";
 import { SYSTEM_PROMPT } from "@/lib/system-prompt";
 import { detectCrisis, CRISIS_AUGMENTATION } from "@/lib/safety";
 
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY,
-});
+function getGroqClient() {
+  return new Groq({
+    apiKey: process.env.GROQ_API_KEY,
+  });
+}
 
 export async function POST(request: Request) {
   try {
@@ -26,6 +28,7 @@ export async function POST(request: Request) {
       ? SYSTEM_PROMPT + "\n\n" + CRISIS_AUGMENTATION
       : SYSTEM_PROMPT;
 
+    const groq = getGroqClient();
     const stream = await groq.chat.completions.create({
       model: "llama-3.3-70b-versatile",
       max_tokens: 1024,
