@@ -5,29 +5,29 @@ import Link from "next/link";
 
 const TRACKS = [
   {
-    title: "Weightless",
-    artist: "Marconi Union",
-    src: "https://cdn.pixabay.com/audio/2022/02/22/audio_d1718ab41b.mp3",
+    title: "Serene View",
+    artist: "Mixkit",
+    src: "https://assets.mixkit.co/music/443/443.mp3",
   },
   {
-    title: "Deep Calm",
-    artist: "Ambient Waves",
-    src: "https://cdn.pixabay.com/audio/2022/10/25/audio_380db41f91.mp3",
+    title: "Meditation",
+    artist: "Mixkit",
+    src: "https://assets.mixkit.co/music/441/441.mp3",
   },
   {
-    title: "Serenity Flow",
-    artist: "Nature Sounds",
-    src: "https://cdn.pixabay.com/audio/2023/04/07/audio_357b39112f.mp3",
+    title: "Spirit in the Woods",
+    artist: "Mixkit",
+    src: "https://assets.mixkit.co/music/139/139.mp3",
   },
   {
-    title: "Peaceful Mind",
-    artist: "Zen Garden",
-    src: "https://cdn.pixabay.com/audio/2024/11/04/audio_b04640db0e.mp3",
+    title: "Relaxation",
+    artist: "Mixkit",
+    src: "https://assets.mixkit.co/music/749/749.mp3",
   },
   {
-    title: "Evening Stillness",
-    artist: "Calm Collective",
-    src: "https://cdn.pixabay.com/audio/2023/10/07/audio_7a3424f498.mp3",
+    title: "Forest Walk",
+    artist: "Mixkit",
+    src: "https://assets.mixkit.co/music/607/607.mp3",
   },
 ];
 
