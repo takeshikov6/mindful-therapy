@@ -20,7 +20,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="antialiased bg-slate-700">{children}</body>
+      <body className="antialiased bg-[#f7f3ed]">{children}</body>
     </html>
   );
 }

@@ -113,17 +113,17 @@ export default function ChatInterface() {
   );
 
   return (
-    <div className={`flex flex-col h-screen ${showWelcome ? "bg-black" : "bg-[#f7f3ed]"}`}>
+    <div className="flex flex-col h-screen bg-[#f7f3ed]">
       {/* Header */}
-      <header className={`flex-shrink-0 border-b backdrop-blur-sm px-6 py-3 ${showWelcome ? "border-white/5 bg-black/60" : "border-stone-200/60 bg-cream-50/80"}`}>
+      <header className="flex-shrink-0 border-b border-stone-200/60 bg-cream-50/80 backdrop-blur-sm px-6 py-3">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
-          <h1 className={`text-[13px] tracking-[0.25em] uppercase font-medium ${showWelcome ? "text-slate-200" : "text-stone-600"}`}>
+          <h1 className="text-[13px] tracking-[0.25em] uppercase font-medium text-stone-600">
             MindfulChat
           </h1>
           <nav className="flex items-center gap-8">
             <Link
               href="/breathe"
-              className={`text-[11px] tracking-[0.15em] uppercase transition-colors ${showWelcome ? "text-slate-400 hover:text-slate-200" : "text-stone-400 hover:text-stone-600"}`}
+              className="text-[11px] tracking-[0.15em] uppercase text-stone-400 hover:text-stone-600 transition-colors"
             >
               breathe
             </Link>
