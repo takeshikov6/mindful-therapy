@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect, useCallback } from "react";
+import Link from "next/link";
 import type { ChatMessage, StreamChunk } from "@/lib/types";
 import WelcomeScreen from "./WelcomeScreen";
 import MessageBubble from "./MessageBubble";
@@ -119,16 +120,13 @@ export default function ChatInterface() {
           <h1 className="text-[13px] tracking-[0.25em] uppercase font-medium text-slate-200">
             MindfulChat
           </h1>
-          <nav className="hidden md:flex items-center gap-8">
-            <span className="text-[11px] tracking-[0.15em] uppercase text-slate-400 cursor-default">
-              sanctuary
-            </span>
-            <span className="text-[11px] tracking-[0.15em] uppercase text-slate-400 cursor-default">
+          <nav className="flex items-center gap-8">
+            <Link
+              href="/breathe"
+              className="text-[11px] tracking-[0.15em] uppercase text-slate-400 hover:text-slate-200 transition-colors"
+            >
               breathe
-            </span>
-            <span className="text-[11px] tracking-[0.15em] uppercase text-slate-300 cursor-default">
-              talk
-            </span>
+            </Link>
           </nav>
         </div>
       </header>
