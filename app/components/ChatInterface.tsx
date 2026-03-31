@@ -132,33 +132,37 @@ export default function ChatInterface() {
       </header>
 
       {/* Messages Area */}
-      <div className="flex-1 overflow-y-auto min-h-0">
-        {showWelcome ? (
+      {showWelcome ? (
+        <div className="flex-1 flex flex-col min-h-0">
           <WelcomeScreen visible={showWelcome} onPromptClick={handleSend} />
-        ) : (
-          <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
-            {messages.map((msg) => (
-              <MessageBubble
-                key={msg.id}
-                role={msg.role}
-                content={msg.content}
-              />
-            ))}
-            {streamingContent && (
-              <MessageBubble
-                role="assistant"
-                content={streamingContent}
-                isStreaming
-              />
-            )}
-            {isLoading && !streamingContent && <TypingIndicator />}
-            <div ref={messagesEndRef} />
+        </div>
+      ) : (
+        <>
+          <div className="flex-1 overflow-y-auto min-h-0">
+            <div className="max-w-2xl mx-auto px-4 py-6 space-y-4">
+              {messages.map((msg) => (
+                <MessageBubble
+                  key={msg.id}
+                  role={msg.role}
+                  content={msg.content}
+                />
+              ))}
+              {streamingContent && (
+                <MessageBubble
+                  role="assistant"
+                  content={streamingContent}
+                  isStreaming
+                />
+              )}
+              {isLoading && !streamingContent && <TypingIndicator />}
+              <div ref={messagesEndRef} />
+            </div>
           </div>
-        )}
-      </div>
 
-      {/* Input */}
-      <ChatInput onSend={handleSend} disabled={isLoading} />
+          {/* Input — only show when chatting */}
+          <ChatInput onSend={handleSend} disabled={isLoading} />
+        </>
+      )}
     </div>
   );
 }

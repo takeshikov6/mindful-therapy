@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
+import CuteAvatar from "../components/CuteAvatar";
+import { PinkStar, Plant } from "../components/CuteDecorations";
 
 const TRACKS = [
   {
@@ -31,6 +33,9 @@ const TRACKS = [
   },
 ];
 
+const CHIME_START = "https://assets.mixkit.co/active_storage/sfx/2319/2319.wav";
+const CHIME_END = "https://assets.mixkit.co/active_storage/sfx/2869/2869.wav";
+
 const PRESET_TIMES = [
   { label: "2 min", seconds: 2 * 60 },
   { label: "5 min", seconds: 5 * 60 },
@@ -52,6 +57,12 @@ function formatTime(seconds: number) {
   return `${m}:${s.toString().padStart(2, "0")}`;
 }
 
+function playChime(src: string) {
+  const audio = new Audio(src);
+  audio.volume = 0.6;
+  audio.play().catch(() => {});
+}
+
 export default function BreathePage() {
   const [selectedTime, setSelectedTime] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(0);
@@ -62,7 +73,7 @@ export default function BreathePage() {
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const breathTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const stopSession = useCallback(() => {
+  const stopSession = useCallback((playEndChime = true) => {
     setIsRunning(false);
     if (intervalRef.current) clearInterval(intervalRef.current);
     if (breathTimeoutRef.current) clearTimeout(breathTimeoutRef.current);
@@ -70,10 +81,14 @@ export default function BreathePage() {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
+    if (playEndChime) {
+      playChime(CHIME_END);
+    }
   }, []);
 
   const startSession = () => {
     if (!selectedTime) return;
+    playChime(CHIME_START);
     setTimeLeft(selectedTime);
     setIsRunning(true);
     setBreathPhase(0);
@@ -86,7 +101,7 @@ export default function BreathePage() {
     intervalRef.current = setInterval(() => {
       setTimeLeft((prev) => {
         if (prev <= 1) {
-          stopSession();
+          stopSession(true);
           return 0;
         }
         return prev - 1;
@@ -130,17 +145,17 @@ export default function BreathePage() {
   const isShrink = phase.label === "Breathe out";
 
   return (
-    <div className="flex flex-col h-screen bg-slate-700">
+    <div className="flex flex-col h-screen bg-[#f7f3ed]">
       {/* Header */}
-      <header className="flex-shrink-0 border-b border-slate-500/20 bg-slate-800/40 backdrop-blur-sm px-6 py-3">
+      <header className="flex-shrink-0 border-b border-stone-200/60 bg-cream-50/80 backdrop-blur-sm px-6 py-3">
         <div className="max-w-3xl mx-auto flex items-center justify-between">
           <Link
             href="/"
-            className="text-[13px] tracking-[0.25em] uppercase font-medium text-slate-200 hover:text-white transition-colors"
+            className="text-[13px] tracking-[0.25em] uppercase font-medium text-stone-600 hover:text-stone-800 transition-colors"
           >
             MindfulChat
           </Link>
-          <span className="text-[11px] tracking-[0.15em] uppercase text-slate-300">
+          <span className="text-[11px] tracking-[0.15em] uppercase text-stone-400">
             breathe
           </span>
         </div>
@@ -151,10 +166,17 @@ export default function BreathePage() {
         {!isRunning ? (
           /* Timer Selection */
           <div className="flex flex-col items-center gap-8 animate-fade-in">
-            <h2 className="font-display text-2xl text-slate-100 italic">
+            {/* Cute avatar */}
+            <div className="relative">
+              <PinkStar className="absolute -top-3 -right-5" />
+              <Plant className="absolute -left-8 bottom-0" />
+              <CuteAvatar expression="listening" size={64} />
+            </div>
+
+            <h2 className="font-display text-2xl text-stone-700 italic">
               Set your timer
             </h2>
-            <p className="text-sm text-slate-400 max-w-xs text-center">
+            <p className="text-sm text-stone-400 max-w-xs text-center">
               Choose a duration, then settle in. Calm music will play while you
               breathe.
             </p>
@@ -166,8 +188,8 @@ export default function BreathePage() {
                   onClick={() => setSelectedTime(t.seconds)}
                   className={`px-5 py-2.5 rounded-full text-sm tracking-wide transition-all ${
                     selectedTime === t.seconds
-                      ? "bg-sky-600 text-white shadow-lg shadow-sky-600/20"
-                      : "bg-slate-600/50 text-slate-300 hover:bg-slate-600 hover:text-slate-100"
+                      ? "bg-amber-400 text-white shadow-lg shadow-amber-300/30"
+                      : "bg-white/60 text-stone-500 border border-stone-200/80 hover:bg-white/80 hover:text-stone-700"
                   }`}
                 >
                   {t.label}
@@ -180,8 +202,8 @@ export default function BreathePage() {
               disabled={!selectedTime}
               className={`mt-4 px-10 py-3 rounded-full text-sm font-medium tracking-wider uppercase transition-all ${
                 selectedTime
-                  ? "bg-sky-500 text-white hover:bg-sky-400 shadow-lg shadow-sky-500/25"
-                  : "bg-slate-600/30 text-slate-500 cursor-not-allowed"
+                  ? "bg-amber-400 text-white hover:bg-amber-500 shadow-lg shadow-amber-300/25"
+                  : "bg-stone-200/50 text-stone-400 cursor-not-allowed"
               }`}
             >
               Start
@@ -196,7 +218,7 @@ export default function BreathePage() {
                 className="absolute inset-0 rounded-full transition-transform ease-in-out"
                 style={{
                   background:
-                    "radial-gradient(circle, rgba(155,190,220,0.4), rgba(100,150,190,0.08))",
+                    "radial-gradient(circle, rgba(212,162,78,0.25), rgba(212,162,78,0.05))",
                   transitionDuration: `${phase.duration}ms`,
                   transform: isExpand
                     ? "scale(1)"
@@ -205,36 +227,36 @@ export default function BreathePage() {
                       : undefined,
                 }}
               />
-              <div className="w-3 h-3 rounded-full bg-slate-300/70" />
+              <div className="w-3 h-3 rounded-full bg-amber-400/70" />
             </div>
 
             {/* Phase label */}
-            <p className="text-lg tracking-[0.2em] uppercase text-slate-300 font-light transition-opacity duration-700">
+            <p className="text-lg tracking-[0.2em] uppercase text-stone-500 font-light transition-opacity duration-700">
               {phase.label}
             </p>
 
             {/* Timer */}
-            <p className="text-4xl font-light text-slate-100 tabular-nums">
+            <p className="text-4xl font-light text-stone-700 tabular-nums">
               {formatTime(timeLeft)}
             </p>
 
             {/* Now playing */}
             <div className="flex flex-col items-center gap-1 mt-2">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-slate-500">
+              <p className="text-[10px] tracking-[0.2em] uppercase text-stone-400">
                 Now playing
               </p>
-              <p className="text-sm text-slate-300">
+              <p className="text-sm text-stone-600">
                 {TRACKS[currentTrack].title}
               </p>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-stone-400">
                 {TRACKS[currentTrack].artist}
               </p>
             </div>
 
             {/* Stop button */}
             <button
-              onClick={stopSession}
-              className="mt-4 px-8 py-2.5 rounded-full text-sm tracking-wider uppercase bg-slate-600/50 text-slate-300 hover:bg-slate-600 hover:text-slate-100 transition-all"
+              onClick={() => stopSession(false)}
+              className="mt-4 px-8 py-2.5 rounded-full text-sm tracking-wider uppercase bg-white/60 text-stone-500 border border-stone-200/80 hover:bg-white/80 hover:text-stone-700 transition-all"
             >
               End session
             </button>
